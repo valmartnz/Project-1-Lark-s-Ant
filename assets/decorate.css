@@ -11,7 +11,9 @@
 
 body {
     text-align: center;
-    font-size: 1.2em;
+    font-size: 40px;
+    padding: 0;
+    margin: 0;
 }
 
 /* better than black */
