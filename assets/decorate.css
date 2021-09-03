@@ -1,0 +1,21 @@
+/*
+  Authors:
+    Valerie Martinez
+    Anthony Sanchez
+    Bradley Diep
+    Jason Duong
+
+  Description:
+    CSS styling for HTML
+*/
+
+body {
+    text-align: center;
+    font-size: 1.2em;
+}
+
+/* better than black */
+
+canvas {
+    background-color: #b5651d;
+}

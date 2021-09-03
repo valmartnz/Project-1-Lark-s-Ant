@@ -1,7 +1,13 @@
-// this is a test
-// yo hey 
-// anthony testing gitpush
-//another test
+/*
+  Authors:
+    Valerie Martinez
+    Anthony Sanchez
+    Bradley Diep
+    Jason Duong
+
+  Description:
+    The brain/logic of the ant
+*/
 
 function setup() {
   // put setup code here
