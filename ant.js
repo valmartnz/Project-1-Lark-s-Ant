@@ -19,7 +19,7 @@ function setup() {
 }
 
 function draw() {
-  // testing
+  // test draw
   rect(ant_bot.x, ant_bot.y, ant_canvas.cell, ant_canvas.cell);
   fill(ant_bot.color);
 }
