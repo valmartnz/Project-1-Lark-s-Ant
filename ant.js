@@ -13,7 +13,7 @@ var c_index = 0; // color index
 var f_index = 0; // face index
 var ant_canvas = { cell: 10, width: 60, height: 40 };
 var ant_action = [0, 1, 2, 1];
-var ant_bot = { x: 300, y: 200, face: ['N', 'E', 'S', 'W'], state: 0, counter: 0, color: ['#FFFFFF', '#89CFF0', '#FFF300', '#FF6347']};
+var ant_bot = { x: 300, y: 200, state: 0, counter: 0, color: ['#000000', '#89CFF0', '#FFF300', '#FF6347'], face: ['N', 'E', 'S', 'W'], action: [0, 1, 2, 1]};
 
 // start pos = (300, 200)
 // face = North, East, South, West
@@ -21,7 +21,7 @@ var ant_bot = { x: 300, y: 200, face: ['N', 'E', 'S', 'W'], state: 0, counter: 0
 
 function setup() {
   createCanvas(ant_canvas.cell * ant_canvas.width, ant_canvas.cell * ant_canvas.height);
-
+  board(10, 50, 'white', 'black'); // COPIED CODE FROM PROFESSOR
 }
 
 function fsm(action) {
@@ -29,48 +29,55 @@ function fsm(action) {
     case 0 : { // Normal Mode
       if (action == 0 || action == 1) {
         ant_bot.counter = c_index;
-        f_index = (action == 0 ? f_index + 1 : f_index - 1); // Left = increment | Right = decrement
+
+        switch (action) {
+          case 0 : ++f_index % 4; break;
+          case 1 : (f_index == 0 ? 3 : --f_index); break;
+        }
+
+        if (action == 0) console.log("L "); else console.log("R "); // delete
+
       } else {
         ant_bot.state = 1;
+        console.log("Going to Countdown-Straight Mode");
       }
       break;
     }
-    case 1 : { // Countdown Mode
-      if (ant_bot.counter < 0) { ant_bot.state = 0; }
-      else { ant_bot.counter--; }
+    case 1 : { // Countdown-Straight Mode
+      if (ant_bot.counter < 0) { ant_bot.state = 0; console.log("Countdown Mode"); }
+      else { ant_bot.counter--; console.log("Straight Mode " + ant_bot.counter); }
     }
   }
 }
 
 function get_color(dx, dy, size, max_width) {
     loadPixels();
-    let offset = ((dx * size) + (dy * size)) * max_width * 4;
+    let offset = ((dx + dy) * max_width * 4);
     console.log("rgb("+ pixels[offset] + ", " + pixels[offset+1] + ', ' + pixels[offset+2] + ")"); // RGB
     updatePixels();
 }
 
 function draw() {
-//  if (frameCount % 50 === 0) {
-//    fsm(/* get current cell color */);
+  if (frameCount % 50 === 0) { // slows down animation
 
+    move_ant();
+//    get_color(dx, dy, size, max_width);
+
+    // color the current cell
+    rect(ant_bot.x, ant_bot.y, ant_canvas.cell, ant_canvas.cell);
+    fill(ant_bot.color[c_index]);
+  }
+}
+
+function move_ant() {
     let dx = ant_bot.x;
     let dy = ant_bot.y;
     let size = ant_canvas.cell;
     let max_width = size * ant_canvas.width;
     let max_height = size * ant_canvas.height;
 
-    move_ant(dx, dy, size, max_width, max_height);
-    get_color(dx, dy, size, max_width);
-
-    // color the current cell
-    rect(ant_bot.x, ant_bot.y, ant_canvas.cell, ant_canvas.cell);
-    fill(ant_bot.color[c_index]);
-//  }
-}
-
-function move_ant(dx, dy, size, max_width, max_height) {
-    // test movement with random face index
-    f_index = Math.floor(Math.random() * 4);
+    // test movement with recognition of current cell color
+    fsm(ant_bot.action[Math.floor(Math.random() * 4)]);
 
     // each cell is 10px
     switch (ant_bot.face[f_index]) {
