@@ -51,10 +51,10 @@ function fsm(action) {
 }
 
 function get_color(dx, dy, size, max_width) {
-    loadPixels();
-    let offset = ((dx + dy) * max_width * 4);
-    console.log("rgb("+ pixels[offset] + ", " + pixels[offset+1] + ', ' + pixels[offset+2] + ")"); // RGB
-    updatePixels();
+  loadPixels();
+  let offset = ((dx + dy) * max_width * 4);
+  console.log("rgb("+ pixels[offset] + ", " + pixels[offset+1] + ', ' + pixels[offset+2] + ")"); // RGB
+  updatePixels();
 }
 
 function draw() {
