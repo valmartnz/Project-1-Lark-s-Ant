@@ -10,14 +10,14 @@
 */
 
 body {
-    text-align: center;
-    font-size: 40px;
-    padding: 0;
-    margin: 0;
+  text-align: center;
+  font-size: 40px;
+  padding: 0;
+  margin: 0;
+
+  background-color: black;
 }
 
-/* better than black */
-
 canvas {
-    background-color: black;
+  background-color: black;
 }
