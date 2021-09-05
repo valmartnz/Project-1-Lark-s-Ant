@@ -51,10 +51,14 @@ function fsm(action) {
 }
 
 function get_color(dx, dy, size, max_width) {
-  loadPixels();
-  let offset = ((dx + dy) * max_width * 4);
-  console.log("rgb("+ pixels[offset] + ", " + pixels[offset+1] + ', ' + pixels[offset+2] + ")"); // RGB
-  updatePixels();
+  let colors = get( dx, dy); // Get pixel color [RGBA] array.
+  let pix_rgb =  // Ignore A = acolors[3], the transparency.
+      (256 // Compose via Horner's Method.
+       * (256 * (colors[ 2 ]) // B
+          +  colors[ 1 ])) // G
+      + colors[ 0 ]; // R
+  //console.log( "acolors,pix_rgb = " + acolors + ", " + pix_rgb );
+  return pix_rgb;
 }
 
 function draw() {
