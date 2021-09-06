@@ -18,36 +18,44 @@ var ant_bot = { x: 300, y: 200, state: 0, counter: 0, color: ['#000000', '#89CFF
 // nose = North, East, South, West
 // array of colors { Black, Blue, Yellow, Red }
 
+var YOU_PRESSED_THE_RIGHT_ARROW_KEY = false;
+keyPressed = () => {
+  if (keyCode === RIGHT_ARROW) { YOU_PRESSED_THE_RIGHT_ARROW_KEY = true; }
+}
+
 function setup() {
   createCanvas(ant_canvas.cell * ant_canvas.width, ant_canvas.cell * ant_canvas.height);
   board(10, 50, 'white', 'black'); // COPIED CODE FROM PROFESSOR
 }
 
 function draw() {
-  if (frameCount % 50 === 0) { // slows down animation
-    fsm(ant_bot.action[Math.floor(Math.random() * 4)]); /***REMOVE THIS WHEN DONE***/
-    // fsm(ant_bot.action[get_color(/* parameters */)]); /***IMPLEMENT THIS WHEN DONE***
+  if (YOU_PRESSED_THE_RIGHT_ARROW_KEY) { /***REMOVE THIS WHEN DONE***/
+//    if (frameCount % 50 === 0) { // slows down animation
+      fsm(ant_bot.action[Math.floor(Math.random() * 4)]); /***REMOVE THIS WHEN DONE***/
+      // fsm(ant_bot.action[get_color(/* parameters */)]); /***IMPLEMENT THIS WHEN DONE***
 
-    // TODO:
-    // Assumptions:
-    //    get_color()       returns a hex color code => '#??????'
-    //    array.indexOf()   returns the index of a value in an array
-    //
-    // Example:
-    //    get_color() = '#FFFFFF' = Black
-    //    c.indexOf(get_color()) = 1
-    //    ++c.indexOf(get_color()) % 3 = (0 + 1) % 4 = 1 
-    //    c[(++c.indexOf(get_color())) % 3] = c[1] = Blue
-    // 
-    // Implementation:
-    //    let t = ant_bot.color;
-    //    let inc = (++t.indexOf(get_color())) % 3;
-    //    fill(ant_bot.color[inc]);
+      // TODO:
+      // Assumptions:
+      //    get_color()       returns a hex color code => '#??????'
+      //    array.indexOf()   returns the index of a value in an array
+      //
+      // Example:
+      //    get_color() = '#FFFFFF' = Black
+      //    c.indexOf(get_color()) = 1
+      //    ++c.indexOf(get_color()) % 3 = (0 + 1) % 4 = 1 
+      //    c[(++c.indexOf(get_color())) % 3] = c[1] = Blue
+      // 
+      // Implementation:
+      //    let t = ant_bot.color;
+      //    let inc = (++t.indexOf(get_color())) % 3;
+      //    fill(ant_bot.color[inc]);
 
-    fill(ant_bot.color[c_index]); /***REPLACE THIS WHEN DONE***/
-    rect(ant_bot.x, ant_bot.y, ant_canvas.cell, ant_canvas.cell);
+      fill(ant_bot.color[c_index]); /***REPLACE THIS WHEN DONE***/
+      rect(ant_bot.x, ant_bot.y, ant_canvas.cell, ant_canvas.cell);
 
-    move_ant(); // Move to Neighbor Cell in Nose Direction
+      move_ant(); // Move to Neighbor Cell in Nose Direction
+//    }
+    YOU_PRESSED_THE_RIGHT_ARROW_KEY = false;
   }
 }
 
