@@ -26,7 +26,7 @@ function setup() {
 function draw() {
   if (frameCount % 50 === 0) { // slows down animation
     fsm(ant_bot.action[Math.floor(Math.random() * 4)]); /***REMOVE THIS WHEN DONE***/
-    // fsm(ant_bot.action[get_color(/* parameters */)]); /***IMPLEMENT THIS WHNE DONE***
+    // fsm(ant_bot.action[get_color(/* parameters */)]); /***IMPLEMENT THIS WHEN DONE***
 
     // TODO:
     // Assumptions:
@@ -35,7 +35,7 @@ function draw() {
     //
     // Example:
     //    get_color() = '#FFFFFF' = Black
-    //    c.indexOf(get_color()) = -1
+    //    c.indexOf(get_color()) = 1
     //    ++c.indexOf(get_color()) % 3 = (0 + 1) % 4 = 1 
     //    c[(++c.indexOf(get_color())) % 3] = c[1] = Blue
     // 
