@@ -53,3 +53,9 @@ Testing
 
 Credits
     Some code was borrowed from Professor Chuck Siska's example code.
+
+Issues
+    Valerie Martinez
+    Anthony Sanchez
+    Bradley Diep
+    Jason Duong

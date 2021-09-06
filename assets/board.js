@@ -1,12 +1,12 @@
 /*
   Authors:
-    Valerie Martinez
-    Anthony Sanchez
-    Bradley Diep
-    Jason Duong
+    Valerie Martinez (valeriemartnz@csu.fullerton.edu)
+    Anthony Sanchez (sanchezanthony244@csu.fullerton.edu)
+    Bradley Diep (bdippin12@csu.fullerton.edu)
+    Jason Duong (reddkingdom@csu.fullerton.edu)
 
   Description:
-    draws the canvas onto website
+    color border for each cell on the grid
 */
 
 function board(rminor, rmajor, rstroke, rfill) {
