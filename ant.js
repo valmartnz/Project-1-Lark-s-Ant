@@ -42,8 +42,8 @@ function draw() {
       // Example:
       //    get_color() = '#FFFFFF' = Black
       //    c.indexOf(get_color()) = 1
-      //    ++c.indexOf(get_color()) % 3 = (0 + 1) % 4 = 1 
-      //    c[(++c.indexOf(get_color())) % 3] = c[1] = Blue
+      //    ++c.indexOf(get_color()) % 4 = (0 + 1) % 4 = 1 
+      //    c[(++c.indexOf(get_color())) % 4] = c[1] = Blue
       // 
       // Implementation:
       //    let t = ant_bot.color;
@@ -54,9 +54,9 @@ function draw() {
       rect(ant_bot.x, ant_bot.y, ant_canvas.cell, ant_canvas.cell);
 
       move_ant(); // Move to Neighbor Cell in Nose Direction
-//    }
+    }
     YOU_PRESSED_THE_RIGHT_ARROW_KEY = false;
-  }
+//  }
 }
 
 function move_ant() {
@@ -67,10 +67,10 @@ function move_ant() {
     let max_height = size * ant_canvas.height;
 
     switch (ant_bot.nose[n_index]) {
-      case 'N' : { dy = (dy == 0 ? max_height : dy - size); break; }
-      case 'E' : { dx = (dx + size) % max_width;  break; }  // example: (600 + 10) % 600 = 10
-      case 'S' : { dy = (dy + size) % max_height; break; }  // example: (400 + 10) % 400 = 10
-      case 'W' : { dx = (dx == 0 ? max_width : dx - size); break; }
+      case 'N' : { dy = (dy == 0 ? max_height : dy) - size; break; } // cell index height = [0, 390]
+      case 'E' : { dx = (dx + size) % max_width;  break; }           // example: (600 + 10) % 600 = 10
+      case 'S' : { dy = (dy + size) % max_height; break; }           // example: (400 + 10) % 400 = 10
+      case 'W' : { dx = (dx == 0 ? max_width : dx) - size; break; }  // cell index width = [0, 590]
     }
 
     ant_bot.x = dx; // move ant in x-dir
@@ -83,7 +83,7 @@ function fsm(action) {
   switch (ant_bot.state) {
     case 0 : { // Normal Mode
       if (action == 0 || action == 1) { // L/R Action
-        ant_bot.counter = c_index; /***COLOR INDEX OR ACTION INDEX ???***/
+        ant_bot.counter = c_index;
         switch (action) {
           case 0 : ++n_index % 4; break;
           case 1 : (n_index == 0 ? 3 : --n_index);
