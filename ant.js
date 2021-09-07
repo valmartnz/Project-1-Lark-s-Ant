@@ -11,7 +11,7 @@
 
 var c_index = 0; // color index
 var n_index = 0; // nose index
-var ant_canvas = { cell: 10, width: 60, height: 40 };
+var board = { cell: 10, width: 60, height: 40 };
 var ant_bot = { x: 300, y: 200, state: 0, counter: 0, color: ['#000000', '#89CFF0', '#FFF300', '#FF6347'], nose: ['N', 'E', 'S', 'W'], action: [0, 1, 2, 1]};
 
 // start pos = (300, 200)
@@ -24,12 +24,12 @@ keyPressed = () => {
 }
 
 function setup() {
-  createCanvas(ant_canvas.cell * ant_canvas.width, ant_canvas.cell * ant_canvas.height);
-  board(10, 50, 'white', 'black'); // COPIED CODE FROM PROFESSOR
+  createCanvas(board.cell * board.width, board.cell * board.height);
+	stroke('white');
 }
 
 function draw() {
-  if (YOU_PRESSED_THE_RIGHT_ARROW_KEY) { /***REMOVE THIS WHEN DONE***/
+//  if (YOU_PRESSED_THE_RIGHT_ARROW_KEY) { /***REMOVE THIS WHEN DONE***/
 //    if (frameCount % 50 === 0) { // slows down animation
       fsm(ant_bot.action[Math.floor(Math.random() * 4)]); /***REMOVE THIS WHEN DONE***/
       // fsm(ant_bot.action[get_color(/* parameters */)]); /***IMPLEMENT THIS WHEN DONE***
@@ -51,20 +51,20 @@ function draw() {
       //    fill(ant_bot.color[inc]);
 
       fill(ant_bot.color[c_index]); /***REPLACE THIS WHEN DONE***/
-      rect(ant_bot.x, ant_bot.y, ant_canvas.cell, ant_canvas.cell);
+      rect(ant_bot.x, ant_bot.y, board.cell, board.cell);
 
       move_ant(); // Move to Neighbor Cell in Nose Direction
-    }
-    YOU_PRESSED_THE_RIGHT_ARROW_KEY = false;
+//    }
+//    YOU_PRESSED_THE_RIGHT_ARROW_KEY = false;
 //  }
 }
 
 function move_ant() {
     let dx = ant_bot.x;
     let dy = ant_bot.y;
-    let size = ant_canvas.cell; // each cell is 10px
-    let max_width = size * ant_canvas.width;
-    let max_height = size * ant_canvas.height;
+    let size = board.cell; // each cell is 10px
+    let max_width = size * board.width;
+    let max_height = size * board.height;
 
     switch (ant_bot.nose[n_index]) {
       case 'N' : { dy = (dy == 0 ? max_height : dy) - size; break; } // cell index height = [0, 390]
@@ -85,8 +85,8 @@ function fsm(action) {
       if (action == 0 || action == 1) { // L/R Action
         ant_bot.counter = c_index;
         switch (action) {
-          case 0 : ++n_index % 4; break;
-          case 1 : (n_index == 0 ? 3 : --n_index);
+          case 0 : n_index = ++n_index % 4; break;
+          case 1 : n_index = (n_index == 0 ? 3 : n_index - 1);
         }
       } else { // Countdown-Straight Action
         ant_bot.state = 1;
