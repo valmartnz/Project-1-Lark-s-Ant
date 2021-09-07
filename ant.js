@@ -118,47 +118,6 @@ function draw() {
   YOU_PRESSED_THE_RIGHT_ARROW_KEY = false;
 }
 
-function move_ant() {
-    let dx = ant_bot.x;
-    let dy = ant_bot.y;
-    let size = board.cell; // each cell is 10px
-    let max_width = size * board.width;
-    let max_height = size * board.height;
-
-    switch (ant_bot.nose[n_index]) {
-      case 'N' : { dy = (dy == 0 ? max_height : dy) - size; break; } // cell index height = [0, 390]
-      case 'E' : { dx = (dx + size) % max_width;  break; }           // example: (600 + 10) % 600 = 10
-      case 'S' : { dy = (dy + size) % max_height; break; }           // example: (400 + 10) % 400 = 10
-      case 'W' : { dx = (dx == 0 ? max_width : dx) - size; break; }  // cell index width = [0, 590]
-    }
-
-    ant_bot.x = dx; // move ant in x-dir
-    ant_bot.y = dy; // move ant in y-dir
-
-    c_index = ++c_index % 4; /***REMOVE THIS WHEN DONE***/
-}
-
-function fsm(action) {
-  switch (ant_bot.state) {
-    case 0 : { // Normal Mode
-      if (action == 0 || action == 1) { // L/R Action
-        ant_bot.counter = c_index;
-        switch (action) {
-          case 0 : n_index = ++n_index % 4; break;
-          case 1 : n_index = (n_index == 0 ? 3 : n_index - 1);
-        }
-      } else { // Countdown-Straight Action
-        ant_bot.state = 1;
-      }
-      break;
-    }
-    case 1 : { // Countdown-Straight Mode
-      if (ant_bot.counter < 0) { ant_bot.state = 0; }
-      else { ant_bot.counter--; }
-    }
-  }
-}
-
 function get_color(dx, dy, size, max_width) {
   let colors = get( dx, dy); // Get pixel color [RGBA] array.
   let pix_rgb =  // Ignore A = acolors[3], the transparency.
