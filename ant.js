@@ -9,14 +9,74 @@
     The brain/logic of the ant
 */
 
-var c_index = 0; // color index
-var n_index = 0; // nose index
-var board = { cell: 10, width: 60, height: 40 };
-var ant_bot = { x: 300, y: 200, state: 0, counter: 0, color: ['#000000', '#89CFF0', '#FFF300', '#FF6347'], nose: ['N', 'E', 'S', 'W'], action: [0, 1, 2, 1]};
+const colors = ['#000000', '#89CFF0', '#FFF300', '#FF6347'];
+const nose = ['N','E', 'S', 'W'];
+const action =  [0, 1, 2, 1];
 
-// start pos = (300, 200)
-// nose = North, East, South, West
-// array of colors { Black, Blue, Yellow, Red }
+var c_index = 0;
+var n_index = 0;
+
+class Board {
+  constructor(cell, width, height) {
+    this.cell = cell;
+    this.width = width;
+    this.height = height;
+  }
+}
+
+class Ant {
+  constructor(x, y, state, nose, counter) {
+    this.x = x;
+    this.y = y;
+    this.state = state;
+    this.nose = nose;
+    this.counter = counter;
+  }
+
+  move() {
+    let dx = this.x;
+    let dy = this.y;
+    let size = board.cell;
+    let max_width = board.width * size;
+    let max_height = board.height * size;
+
+    switch (nose[n_index]) {
+      case 'N' : { dy = (dy == 0 ? max_height : dy) - size; break; } // cell index height = [0, 390]
+      case 'E' : { dx = (dx + size) % max_width;  break; }           // example: (590 + 10) % 600 = 0
+      case 'S' : { dy = (dy + size) % max_height; break; }           // example: (390 + 10) % 400 = 0
+      case 'W' : { dx = (dx == 0 ? max_width : dx) - size; break; }  // cell index width = [0, 590]
+    }
+
+    this.x = dx; // move ant in x-dir
+    this.y = dy; // move ant in y-dir
+
+    c_index = ++c_index % 4;
+  }
+
+  fsm (action) {
+    switch (this.state) {
+      case 0 : { // Normal Mode
+        if (action == 0 || action == 1) { // L/R Action
+          this.counter = c_index;
+          switch (action) {
+            case 0 : n_index = ++n_index % 4; break;
+            case 1 : n_index = (n_index == 0 ? 3 : n_index - 1);
+          }
+        } else { // Countdown-Straight Action
+          this.state = 1;
+        }
+        break;
+      }
+      case 1 : { // Countdown-Straight Mode
+        if (this.counter < 0) { this.state = 0; }
+        else { this.counter--; }
+      }
+    }
+  }
+}
+
+var board = new Board(10, 60, 40);
+var ant = new Ant(300, 200, 0, 0, 0);
 
 var YOU_PRESSED_THE_RIGHT_ARROW_KEY = false;
 keyPressed = () => {
@@ -25,14 +85,13 @@ keyPressed = () => {
 
 function setup() {
   createCanvas(board.cell * board.width, board.cell * board.height);
-	stroke('white');
+  stroke('white');
 }
 
 function draw() {
-//  if (YOU_PRESSED_THE_RIGHT_ARROW_KEY) { /***REMOVE THIS WHEN DONE***/
-//    if (frameCount % 50 === 0) { // slows down animation
-      fsm(ant_bot.action[Math.floor(Math.random() * 4)]); /***REMOVE THIS WHEN DONE***/
-      // fsm(ant_bot.action[get_color(/* parameters */)]); /***IMPLEMENT THIS WHEN DONE***
+  if (YOU_PRESSED_THE_RIGHT_ARROW_KEY) {
+//    if (frameCount % 50 === 0) {
+      ant.fsm(action[Math.floor(Math.random() * 4)]);
 
       // TODO:
       // Assumptions:
@@ -50,13 +109,13 @@ function draw() {
       //    let inc = (++t.indexOf(get_color())) % 3;
       //    fill(ant_bot.color[inc]);
 
-      fill(ant_bot.color[c_index]); /***REPLACE THIS WHEN DONE***/
-      rect(ant_bot.x, ant_bot.y, board.cell, board.cell);
+      fill(colors[c_index]);
+      rect(ant.x, ant.y, board.cell, board.cell);
 
-      move_ant(); // Move to Neighbor Cell in Nose Direction
-//    }
-//    YOU_PRESSED_THE_RIGHT_ARROW_KEY = false;
-//  }
+      ant.move();
+  //  }
+  }
+  YOU_PRESSED_THE_RIGHT_ARROW_KEY = false;
 }
 
 function move_ant() {
