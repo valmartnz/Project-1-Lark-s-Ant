@@ -54,7 +54,7 @@ Testing
 Credits
     Some code was borrowed from Professor Chuck Siska's example code.
 
-Issues
+Issues (Contact if Needed for Clarification)
     Valerie Martinez
     Anthony Sanchez
     Bradley Diep
