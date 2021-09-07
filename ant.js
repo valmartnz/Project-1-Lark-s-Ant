@@ -13,7 +13,6 @@ const colors = ['#000000', '#89CFF0', '#FFF300', '#FF6347'];
 const nose = ['N','E', 'S', 'W'];
 const action =  [0, 1, 2, 1];
 
-var c_index = 0;
 var n_index = 0;
 
 class Board {
@@ -21,6 +20,29 @@ class Board {
     this.cell = cell;
     this.width = width;
     this.height = height;
+    this.pixel = [];
+  }
+
+  increment_color() {
+    let dx = ant.x;
+    let dy = ant.y;
+
+    let px = this.pixel.find(element => element[0] == dx && element[1] == dy);
+
+    if (px != undefined) {
+      px[2] = (px[2] + 1) % 4;
+      fill(colors[px[2]]);
+    } else {
+      this.pixel.push([dx, dy, 1]);
+      fill(colors[1]); // we assume the cell is black
+    }
+
+    rect(ant.x, ant.y, this.cell, this.cell);
+  }
+
+  get_color(dx, dy) {
+    let px = this.pixel.find(element => element[0] == dx && element[1] == dy);
+    return (px != undefined ? px[2] : 0);
   }
 }
 
@@ -31,6 +53,29 @@ class Ant {
     this.state = state;
     this.nose = nose;
     this.counter = counter;
+  }
+
+  fsm (action) {
+    switch (this.state) {
+      case 0 : { // Normal Mode
+        if (action == 0 || action == 1) { // L/R Action
+          this.counter = board.get_color(ant.x, ant.y);
+          console.log("counter: ", this.counter);
+          switch (action) {
+            case 0 : n_index = ++n_index % 4; break;
+            case 1 : n_index = (n_index == 0 ? 3 : n_index - 1);
+          }
+        } else { // Countdown-Straight Action
+          this.state = 1;
+        }
+        break;
+      }
+      case 1 : { // Countdown-Straight Mode
+        console.log("Countdown-Mode: ", this.counter)
+        if (this.counter < 0) { this.state = 0; }
+        else { this.counter--; }
+      }
+    }
   }
 
   move() {
@@ -49,29 +94,6 @@ class Ant {
 
     this.x = dx; // move ant in x-dir
     this.y = dy; // move ant in y-dir
-
-    c_index = ++c_index % 4;
-  }
-
-  fsm (action) {
-    switch (this.state) {
-      case 0 : { // Normal Mode
-        if (action == 0 || action == 1) { // L/R Action
-          this.counter = c_index;
-          switch (action) {
-            case 0 : n_index = ++n_index % 4; break;
-            case 1 : n_index = (n_index == 0 ? 3 : n_index - 1);
-          }
-        } else { // Countdown-Straight Action
-          this.state = 1;
-        }
-        break;
-      }
-      case 1 : { // Countdown-Straight Mode
-        if (this.counter < 0) { this.state = 0; }
-        else { this.counter--; }
-      }
-    }
   }
 }
 
@@ -89,42 +111,12 @@ function setup() {
 }
 
 function draw() {
-  if (YOU_PRESSED_THE_RIGHT_ARROW_KEY) {
+//  if (YOU_PRESSED_THE_RIGHT_ARROW_KEY) {
 //    if (frameCount % 50 === 0) {
       ant.fsm(action[Math.floor(Math.random() * 4)]);
-
-      // TODO:
-      // Assumptions:
-      //    get_color()       returns a hex color code => '#??????'
-      //    array.indexOf()   returns the index of a value in an array
-      //
-      // Example:
-      //    get_color() = '#FFFFFF' = Black
-      //    c.indexOf(get_color()) = 1
-      //    ++c.indexOf(get_color()) % 4 = (0 + 1) % 4 = 1 
-      //    c[(++c.indexOf(get_color())) % 4] = c[1] = Blue
-      // 
-      // Implementation:
-      //    let t = ant_bot.color;
-      //    let inc = (++t.indexOf(get_color())) % 3;
-      //    fill(ant_bot.color[inc]);
-
-      fill(colors[c_index]);
-      rect(ant.x, ant.y, board.cell, board.cell);
-
+      board.increment_color();
       ant.move();
-  //  }
-  }
-  YOU_PRESSED_THE_RIGHT_ARROW_KEY = false;
-}
-
-function get_color(dx, dy, size, max_width) {
-  let colors = get( dx, dy); // Get pixel color [RGBA] array.
-  let pix_rgb =  // Ignore A = acolors[3], the transparency.
-      (256 // Compose via Horner's Method.
-       * (256 * (colors[ 2 ]) // B
-          +  colors[ 1 ])) // G
-      + colors[ 0 ]; // R
-  //console.log( "acolors,pix_rgb = " + acolors + ", " + pix_rgb );
-  return pix_rgb;
+//    }
+//  }
+//  YOU_PRESSED_THE_RIGHT_ARROW_KEY = false;
 }
