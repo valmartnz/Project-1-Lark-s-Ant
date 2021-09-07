@@ -13,8 +13,6 @@ const colors = ['#000000', '#89CFF0', '#FFF300', '#FF6347'];
 const nose = ['N','E', 'S', 'W'];
 const action =  [0, 1, 2, 1];
 
-var n_index = 0;
-
 class Board {
   constructor(cell, width, height) {
     this.cell = cell;
@@ -34,7 +32,7 @@ class Board {
       fill(colors[px[2]]);
     } else {
       this.pixel.push([dx, dy, 1]);
-      fill(colors[1]); // we assume the cell is black
+      fill(colors[1]); // we assume the cell was black
     }
 
     rect(ant.x, ant.y, this.cell, this.cell);
@@ -60,10 +58,9 @@ class Ant {
       case 0 : { // Normal Mode
         if (action == 0 || action == 1) { // L/R Action
           this.counter = board.get_color(ant.x, ant.y);
-          console.log("counter: ", this.counter);
           switch (action) {
-            case 0 : n_index = ++n_index % 4; break;
-            case 1 : n_index = (n_index == 0 ? 3 : n_index - 1);
+            case 0 : ant.nose = ++ant.nose % 4; break;
+            case 1 : ant.nose = (ant.nose == 0 ? 3 : ant.nose - 1);
           }
         } else { // Countdown-Straight Action
           this.state = 1;
@@ -71,7 +68,6 @@ class Ant {
         break;
       }
       case 1 : { // Countdown-Straight Mode
-        console.log("Countdown-Mode: ", this.counter)
         if (this.counter < 0) { this.state = 0; }
         else { this.counter--; }
       }
@@ -85,7 +81,7 @@ class Ant {
     let max_width = board.width * size;
     let max_height = board.height * size;
 
-    switch (nose[n_index]) {
+    switch (nose[ant.nose]) {
       case 'N' : { dy = (dy == 0 ? max_height : dy) - size; break; } // cell index height = [0, 390]
       case 'E' : { dx = (dx + size) % max_width;  break; }           // example: (590 + 10) % 600 = 0
       case 'S' : { dy = (dy + size) % max_height; break; }           // example: (390 + 10) % 400 = 0
@@ -113,7 +109,7 @@ function setup() {
 function draw() {
 //  if (YOU_PRESSED_THE_RIGHT_ARROW_KEY) {
 //    if (frameCount % 50 === 0) {
-      ant.fsm(action[Math.floor(Math.random() * 4)]);
+      ant.fsm(action[board.get_color(ant.x, ant.y)]);
       board.increment_color();
       ant.move();
 //    }
