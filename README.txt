@@ -50,10 +50,6 @@ Testing
     Followed the installation instruction above and watched it run
     a couple of times. Looks good.
 
-
-Credits
-    Some code was borrowed from Professor Chuck Siska's example code.
-
 Issues (Contact if Needed for Clarification)
     Valerie Martinez
     Anthony Sanchez
