@@ -9,7 +9,8 @@
     The brain/logic of the ant
 
   Changes made by Val:
-    -I didn't delete any of the previous code, only commented it out.
+    -I didn't delete any of the previous code, only commented it out, so feel free to change things back if they work
+     better that way.
     -Made some things global variables for easier access instead of complicating things
      with classes.
     -Added some of the functions the prof had such as draw_bot() and draw_update()
