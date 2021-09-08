@@ -48,11 +48,15 @@ class Ant {
     this.state = state;
     this.nose = nose;
     this.counter = counter;
+    this.adj_mat = [[0, 1], [1, 0]];
   }
 
   fsm (action) {
+    let col;
+    
     switch (this.state) {
       case 0 : { // Normal Mode
+        col = 0;
         if (action == 0 || action == 1) { // L/R Action
           this.counter = board.get_color('@' + this.x + this.y);
           switch (action) {
@@ -61,16 +65,24 @@ class Ant {
           }
           console.log('Going ' + (action == 0 ? 'Left' : 'Right'));
         } else { // Countdown-Straight Action
-          this.state = 1;
+          col = 1;
           console.log('Going to Countdown Mode');
         }
         break;
       }
       case 1 : { // Countdown-Straight Mode
-        if (this.counter < 0) { this.state = 0; console.log('Going to Normal Mode'); }
-        else { this.counter--; console.log(this.counter + 1 + ' left') }
+        if (this.counter < 0) {
+          col = 1;
+          console.log('Going to Normal Mode');
+        } else {
+          col = 0;
+          this.counter--;
+          console.log(this.counter + 1 + ' left')
+        }
       }
     }
+
+    this.state = this.adj_mat[this.state][col];
   }
 
   move() {
