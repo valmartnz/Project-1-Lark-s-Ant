@@ -12,6 +12,7 @@
 const colors = ['#000000', '#89CFF0', '#FFF300', '#FF6347'];
 const nose = ['N', 'W', 'S', 'E'];
 const action =  [0, 1, 2, 1];
+
 class Board {
   constructor(cell, width, height) {
     this.cell = cell;
