@@ -1,4 +1,7 @@
 /*
+  Class: CPSC 335-03
+  Assignment: Project 1
+
   Authors:
     Valerie Martinez (valeriemartnz@csu.fullerton.edu)
     Anthony Sanchez (sanchezanthony244@csu.fullerton.edu)
