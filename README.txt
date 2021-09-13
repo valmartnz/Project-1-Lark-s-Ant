@@ -26,7 +26,7 @@ Introduction
     We also use the Javascript Standard built-in objects, Map. Each key
     represents a unique string to a particular cell. The values will be the
     cell's color index. We opted for a map instead of an array or list since
-    its lookup efficiency is O(1) while others are subjected their input size,
+    its lookup efficiency is O(1) while others are subjected to their input size,
     O(n).
 
 
