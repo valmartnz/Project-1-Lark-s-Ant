@@ -113,7 +113,6 @@ class Ant {
     }
 
 //    console.log(ant.nose == 0 ? 'Moving North' : ant.nose == 1 ? 'Moving West' : ant.nose == 2 ? 'Moving South' : 'Moving East');
-			 //
     this.x = dx; // move ant in x-dir
     this.y = dy; // move ant in y-dir
   }
@@ -123,7 +122,7 @@ const board = new Board(10, 60, 40);
 const ant = new Ant(300, 200, 0, 0, 0);
 
 var step = false;
-var walk = false;
+var walk = true; // starts by walking
 var run = false;
 
 keyTyped = () => {
