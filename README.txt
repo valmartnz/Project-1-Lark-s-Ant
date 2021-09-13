@@ -22,6 +22,12 @@ Introduction
     The data structure used is an adjacency matrix that holds the states
     and transitions for implementing the finite state machine. Every state, 
     will have a transition; thus, no cell in the matrix is undefined.
+    
+    We also use the Javascript Standard built-in objects, Map. Each key
+    represents a unique string to a particular cell. The values will be the
+    cell's color index. We opted for a map instead of an array or list since
+    its lookup efficiency is O(1) while others are subjected to their input size,
+    O(n).
 
 
 Zip Contents
@@ -50,6 +56,7 @@ Features
 
 External Requirements
     None
+
 
 Bugs
     No bugs have been found at the time of writing this.
