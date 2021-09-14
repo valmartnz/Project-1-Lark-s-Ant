@@ -9,7 +9,7 @@ Team Members
 
 
 Introduction
-    This program uses HTML, Javascript (JS), and P5.js to create
+    This program uses HTML, Javascript (JS), and P5 to create
     an invisible bot that draws a grid. As it moves across the grid,
     depending on the cell's color to action index, the bot will face
     and move in a specific direction and afterward, each cell's color
@@ -32,16 +32,23 @@ Introduction
 
 Zip Contents
     1. README.txt. This file containing how to operate the program.
-    2. assets/decorate.css. Controlling web page style.
-    3. ant.js. Contains functions that control the Larks Ant functionality. 
-    4. index.html. Sets up the webpage where the program is set.
-    5. p5.js. The P5 package that is loaded into html.
+    2. 335-03-p1-CodeGang/assets/decorate.css. Controlling web page style.
+    3. 335-03-p1-CodeGang/ant.js. Contains functions that control the Larks Ant functionality. 
+    4. 335-03-p1-CodeGang/index.html. Sets up the webpage where the program is set.
+    5. 335-03-p1-CodeGang/p5.js. The P5 package that is loaded into HTML.
 
 
 How to Build (Setup + Installation)
     1. Extract .zip file
     2. Drag + Drop HTML file "index.html" into a browser window.
-    3. Press either the spacebar, 'w', or 'r' key to see the ant move 
+    3. Press either the spacebar, 'w', or 'r' key to see the ant move (by default, the ant is walking)
+    4. Optional
+        - Uncomment all lines leading with "console.log" in the "ant.js"
+        file. On the browser where the program is runned, right click
+        and hit "inspect" or simply press Ctrl+Shift+I.
+
+        - Next, navigate to the "Console" tab/section. After the ant moves,
+        the relevant informaton, such as direction and position, should display.
 
 
 Features
@@ -52,6 +59,10 @@ Features
     Pressing the spacebar will produce one move
     Pressing the letter 'w' (walk) will move the bot continuously for every 24 frames
     Pressing the letter 'r' (run) will move the bot continuously (essentially every frame)
+
+
+Sample Invocation
+    https://ibb.co/2WPk2qw
 
 
 External Requirements

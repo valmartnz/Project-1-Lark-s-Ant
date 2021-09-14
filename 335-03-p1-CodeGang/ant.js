@@ -9,7 +9,7 @@
     Jason Duong (reddkingdom@csu.fullerton.edu)
 
   Description:
-    The brain/logic of the ant
+    The brain/logic of the ant that computes the movement through a finite set of rules
 */
 
 const colors = ['#000000', '#89CFF0', '#FFF300', '#FF6347'];
@@ -73,7 +73,7 @@ class Ant {
           this.counter = board.get_color('@' + this.x + this.y);
 //          console.log('Reading Cell Color At: (' + this.x + ', ' + this.y + ') -> ' + (board.get_color('@' + this.x + this.y) == 0 ? 'Black' : board.get_color('@' + this.x + this.y) == 1 ? 'Blue' : board.get_color('@' + this.x + this.y == 3 ? 'Yellow' : 'Red')));
           switch (action) {
-            case 0 : ant.nose = ++ant.nose % 4; break;
+            case 0 : ant.nose = ++ant.nose % 4; break; // example: (3 + 1) % 4 = 0 -> North
             case 1 : ant.nose = (ant.nose == 0 ? 3 : ant.nose - 1);
           }
 //          console.log('Facing ' + (action == 0 ? 'Left' : 'Right'));
@@ -118,6 +118,7 @@ class Ant {
   }
 }
 
+// creating objects
 const board = new Board(10, 60, 40);
 const ant = new Ant(300, 200, 0, 0, 0);
 
@@ -142,11 +143,11 @@ function setup() {
 function draw() {
   if (step) {
 		update();
-	   step = false;
+	  step = false;
   }
   else if (walk) {
-    if (frameCount % 24 === 0) {
-		update();
+    if (frameCount % 24 === 0) { // shows ant on every 24 frames
+		  update();
     }
   }
   else if (run) {
@@ -155,7 +156,7 @@ function draw() {
 }
 
 function update() {
-  ant.fsm(action[board.get_color('@' + ant.x + ant.y)]);
-  board.increment_color();
-  ant.move();
+  ant.fsm(action[board.get_color('@' + ant.x + ant.y)]); // completes steps 1-3
+  board.increment_color(); // completes steps 4
+  ant.move(); // completes steps 5
 }

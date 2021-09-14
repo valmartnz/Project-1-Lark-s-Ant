@@ -18,9 +18,11 @@ body {
   padding: 0;
   margin: 0;
 
-  background-color: rgb(81, 122, 211);
+  font-family: 'Helvetica';
+
+  background-color: rgb(81, 122, 211); /* purpleish-blue color */
 }
 
 canvas {
-  background-color: black;
+  background-color: black; /* black background according to instructions */
 }
