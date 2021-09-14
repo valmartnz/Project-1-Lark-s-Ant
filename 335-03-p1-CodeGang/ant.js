@@ -32,18 +32,18 @@ class Board {
     if (visited) {
       this.pixel.set(pos, (board.pixel.get(pos) + 1) % 4);
       fill(colors[board.pixel.get(pos)]);
-/*
+
       switch (this.pixel.get(pos)) {
         case 0 : console.log('Increment Color to \"Black\" on ' + '(' + ant.x + ', ' + ant.y + ')');  break;
         case 1 : console.log('Increment Color to \"Blue\" on ' + '(' + ant.x + ', ' + ant.y + ')');   break;
         case 2 : console.log('Increment Color to \"Yellow\" on ' + '(' + ant.x + ', ' + ant.y + ')'); break;
-        case 3 : console.log('Increment Color to \"Green\" on ' + '(' + ant.x + ', ' + ant.y + ')');
+        case 3 : console.log('Increment Color to \"Red\" on ' + '(' + ant.x + ', ' + ant.y + ')');
       }
-*/
+
     } else {
       this.pixel.set(pos, 1);
       fill(colors[1]); // we assume the cell was black
-//      console.log('Increment Color to \"Blue\" on ' + '(' + ant.x + ", " + ant.y + ')');
+      console.log('Increment Color to \"Blue\" on ' + '(' + ant.x + ", " + ant.y + ')');
     }
 
     rect(ant.x, ant.y, this.cell, this.cell);
@@ -71,26 +71,26 @@ class Ant {
         transition = 0;
         if (action == 0 || action == 1) {
           this.counter = board.get_color('@' + this.x + this.y);
-//          console.log('Reading Cell Color At: (' + this.x + ', ' + this.y + ') -> ' + (board.get_color('@' + this.x + this.y) == 0 ? 'Black' : board.get_color('@' + this.x + this.y) == 1 ? 'Blue' : board.get_color('@' + this.x + this.y == 3 ? 'Yellow' : 'Red')));
+          console.log('Reading Cell Color At: (' + this.x + ', ' + this.y + ') -> ' + (board.get_color('@' + this.x + this.y) == 0 ? 'Black' : board.get_color('@' + this.x + this.y) == 1 ? 'Blue' : board.get_color('@' + this.x + this.y == 3 ? 'Yellow' : 'Red')));
           switch (action) {
             case 0 : ant.nose = ++ant.nose % 4; break; // example: (3 + 1) % 4 = 0 -> North
             case 1 : ant.nose = (ant.nose == 0 ? 3 : ant.nose - 1);
           }
-//          console.log('Facing ' + (action == 0 ? 'Left' : 'Right'));
+          console.log('Facing ' + (action == 0 ? 'Left' : 'Right'));
         } else { // Countdown-Straight Action
           transition = 1;
-//          console.log('Going to Countdown Mode');
+          console.log('Going to Countdown Mode');
         }
         break;
       }
       case 1 : { // Countdown-Straight Mode
         if (this.counter < 0) {
           transition = 1;
-//          console.log('Going to Normal Mode');
+          console.log('Going to Normal Mode');
         } else { // Straight Mode
           transition = 0;
           this.counter--;
-//          console.log(this.counter + 1 + ' left')
+          console.log(this.counter + 1 + ' left')
         }
       }
     }
@@ -112,7 +112,7 @@ class Ant {
       case 'E' : { dx = (dx + size) % max_width; }                   // example: (590 + 10) % 600 = 0
     }
 
-//    console.log(ant.nose == 0 ? 'Moving North' : ant.nose == 1 ? 'Moving West' : ant.nose == 2 ? 'Moving South' : 'Moving East');
+    console.log(ant.nose == 0 ? 'Moving North' : ant.nose == 1 ? 'Moving West' : ant.nose == 2 ? 'Moving South' : 'Moving East');
     this.x = dx; // move ant in x-dir
     this.y = dy; // move ant in y-dir
   }
@@ -137,7 +137,7 @@ keyTyped = () => {
 function setup() {
   createCanvas(board.cell * board.width, board.cell * board.height);
   stroke('white');
-//  console.log(ant.nose == 0 ? 'Facing North' : '');
+  console.log(ant.nose == 0 ? 'Facing North' : '');
 }
 
 function draw() {
